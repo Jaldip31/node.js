@@ -14,3 +14,4 @@ newEmp.save(function(error){
     }
     mongoose.disconnect();
 })
+mongoose.pluralize(null);
