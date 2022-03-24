@@ -1,7 +1,8 @@
 var fs = require("fs");
 var content = "we are fine... ";
 
-fs.writeFile("WriteFile.txt", content, "utf-8", function (error) {
+// fs.mkdirSync("node/app1(http_fs)/files");                                   //create folder
+fs.writeFile("node/app1(http_fs)/files/WriteFile.txt", content, "utf-8", function (error) {
     if (error) {
         console.log(error);
     }

@@ -3,7 +3,7 @@
 var http = require("http");
 var fs = require("fs");
 var app = http.createServer((request, response) => {
-    fs.readFile("WriteFile.txt", "utf-8", (error, data) => {
+    fs.readFile("node/app1(http_fs)/files/WriteFile.txt", "utf-8", (error, data) => {
         if (error) {
             response.write(404);
             response.write("Unble to Read...");
