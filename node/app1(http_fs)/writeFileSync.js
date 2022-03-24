@@ -1,8 +1,8 @@
 //1
 var fs = require("fs");
-var content = "we are again fine... ";
+var content = "we are again fine..... ";
 
-const a = fs.writeFileSync("node/app1(http_fs)/files/WriteFileSync.txt", content, "utf-8");
+const a = fs.writeFileSync("files/WriteFileSync.txt", content, "utf-8");
 console.log(a)                                                  //undefined
 
 console.log("Finish File");                                     //Finish File
