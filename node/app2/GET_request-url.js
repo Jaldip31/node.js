@@ -2,10 +2,10 @@
 const http = require("http");
 const url = require("url");
 const server = http.createServer((req, res) => {
+    console.log("Hello")
     res.writeHead(200, { "Content-Type": "text/html" });
     const queryObject = url.parse(req.url, true).query
     console.log(queryObject);                           //[Object: null prototype] { uname: 'skill', upwd: 'qode' }
-
 
     const uname = queryObject.uname;
     const upwd = queryObject.upwd;
