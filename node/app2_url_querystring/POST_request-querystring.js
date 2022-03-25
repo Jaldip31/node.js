@@ -10,7 +10,7 @@ const server = http.createServer((req, res) => {
         
         req.on("end", function () {
             var postdata = querystring.parse(postparameters);
-            console.log("postparameter:", postdata);
+            console.log("postparameter:", postdata);            //postparameter: [Object: null prototype] { uname: 'a', upwd: 'b' }
             if (postdata["uname"] == "a" && postdata["upwd"] == "b") {
                 res.write("<h1>Login Success</h1>")
             } else {
