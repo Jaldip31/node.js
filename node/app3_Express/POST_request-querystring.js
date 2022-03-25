@@ -1,6 +1,8 @@
-const http = require("http");
+const express = require("express");
 const querystring = require("querystring");
-const server = http.createServer((req, res) => {
+var app = express();
+// console.log(app);
+app.post("/", (req, res) => {
     res.writeHead(200, { "content-type": "text/html" });
     if (req.method == "POST") {
         var postparameters = "";
@@ -22,6 +24,6 @@ const server = http.createServer((req, res) => {
     }
 })
 
-server.listen(5050, () => {
+app.listen(5050, () => {
     console.log("listing port 5050");
-})
+});
