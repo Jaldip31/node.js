@@ -7,9 +7,18 @@ app.get("/", (req, res) => {
     res.sendFile(__dirname + "/index.html")
 })
 
+// app.get("/admin/home",(req,res)=>{
+//     res.sendFile(__dirname+"/admin/home.html")
+// })
+// app.get("/admin/about",(req,res)=>{
+//     res.sendFile(__dirname+"/admin/about.html")
+// })
 
 var adminRouter = express.Router();
 app.use("/admin", adminRouter);
+adminRouter.get("/", (req, res) => {
+    res.sendFile(__dirname + "/admin/home.html");
+})
 adminRouter.get("/home", (req, res) => {
     res.sendFile(__dirname + "/admin/home.html");
 })
@@ -25,6 +34,9 @@ adminRouter.get("/insert", (req, res) => {
 
 var userRouter = express.Router();
 app.use("/user", userRouter);
+userRouter.get("/", (req, res) => {
+    res.sendFile(__dirname + "/user/home.html");
+})
 userRouter.get("/home", (req, res) => {
     res.sendFile(__dirname + "/user/home.html");
 })
@@ -40,6 +52,9 @@ userRouter.get("/insert", (req, res) => {
 
 var managerRouter = express.Router();
 app.use("/manager", managerRouter);
+managerRouter.get("/", (req, res) => {
+    res.sendFile(__dirname + "/manager/home.html");
+})
 managerRouter.get("/home", (req, res) => {
     res.sendFile(__dirname + "/manager/home.html");
 })
@@ -51,4 +66,8 @@ managerRouter.get("/getinfo", (req, res) => {
 })
 managerRouter.get("/insert", (req, res) => {
     res.sendFile(__dirname + "/manager/insert.html");
+})
+
+app.use("/",(req,res)=>{
+    res.send("...NO PAGE...");
 })
