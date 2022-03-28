@@ -1,3 +1,4 @@
+//go to port no 5454 live server and open the html form.
 const express = require("express");
 const app = express();
 
@@ -6,7 +7,7 @@ app.get("/",(req, res) => {
 });
 
 app.get("/login",(req, res) => {
-    var uname = req.query.uname
+    var queryObject = req.query
     console.log(queryObject);
     const uname = queryObject.uname;
     const upwd = queryObject.upwd;
