@@ -4,7 +4,7 @@ const app = express();
 // const cors = require("cors");
 const mongoose = require("mongoose");
 const data = require("./data");
-const user = require("./userModule");
+const User = require("./userModule");
 
 app.use(express.json());
 //app.use(cors());
@@ -16,7 +16,7 @@ mongoose.connect("mongodb://localhost:27017/skilldata", {
 });
 
 app.get("/insert", (req, res) => {
-    const result = user.insertMany(data.users);
+    const result = User.insertMany(data.users);
     res.send(result);
 })
 
