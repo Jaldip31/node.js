@@ -17,6 +17,6 @@ const studSchama = new mongoose.Schema({
     notes: { type: String, required: false },
 },{timestamps:true})
 
-var studModel = mongoose.model("studInq", studSchama)
+var studModel = mongoose.model("studDetail", studSchama)
 
 module.exports = studModel
