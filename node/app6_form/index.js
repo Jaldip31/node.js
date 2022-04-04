@@ -2,8 +2,8 @@
 const express = require('express');
 const app = express();
 const mongoose = require('mongoose')
-const fs = require('fs')
 const studModel = require('./studModel')
+
 const bodyparser = require("body-parser");
 app.use(bodyparser.urlencoded({ extended: true }));
 // app.use(bodyparser.json());
@@ -11,6 +11,7 @@ app.use(bodyparser.urlencoded({ extended: true }));
 const studentRouter = require("./rout")
 app.use("/student", studentRouter);
 
+const fs = require('fs')
 const formFile = fs.readFileSync("form.html", "utf-8");
 
 
@@ -20,6 +21,9 @@ mongoose.connect("mongodb://localhost:27017/jaldip", {
     useUnifiedTopology: true
 });
 
+app.get("/find", (req, res) => {
+    studModel.find(req.query).then(data => res.json(data))
+})
 app.post("/submit", (req, res) => {
     async function fun(){
         try {
