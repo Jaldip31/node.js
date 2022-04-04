@@ -5,55 +5,103 @@
 
     <title>Document</title>
 </head>
+<style>
+    form {
+        margin: 0% 5% 5% 5%;
+        padding: 0% 5% 5% 5%;
+        border: 2px solid black;
+    }
+
+    .box {
+        text-align: center;
+        display: flex;
+    }
+
+    #info {
+        margin-left: 5%;
+    }
+</style>
 
 <body>
 
+    <h1> Skill Qode </h1>
     <form method="post" action="/submit">
-        <h1 align="center"> Inquiry Form </h1>
+        <div id="header" style="text-align: center;">
+            <h1> Inquiry Form </h1>
+            <div class="box">
+                <div id="info">Date : <span id="date"></span> </div>
+                <div id="info">Form no : <div id="form_n" name="form_no" ></div>{%f_no%} </div>
+            </div><br>
+            <hr><br>
+        </div>
 
-        <h2 align="center">
-            <label for="fname">First name:</label><br>
-            <input type="text" id="fname" name="fname" placeholder="John"><br><br>
+        <div class="box">
+            <div id="info">First name:
+                <input type="text" name="fname" placeholder="John">
+            </div>
 
+            <div id="info">Last name:
+                <input type="text" name="lname" placeholder="Doe">
+            </div>
+        </div><br>
 
-            <label for="lname">Last name:</label><br>
-            <input type="text" id="lname" name="lname" placeholder="Doe"><br><br>
+        <!-- <button type="submit">Login</button> -->
 
-            <!-- <button type="submit">Login</button> -->
-            <label for="Date">Date</label><br>
-            <input type="text" id="lname" name="date" placeholder="Date"><br><br>
+        <div class="box">
+            <div id="info">DOB.
+                <input type="date" name="dob" placeholder="Date of birth">
+            </div><br>
 
-            <label for="Date">Fo no.</label><br>
-            <input type="text" id="lname" name="Formno" placeholder=""><br><br>
+            <div id="info">Contact no.
+                <input type="number" name="contact_no" placeholder="mobile_no">
+            </div>
+        </div><br>
 
-            <label for="Date">DOB.</label><br>
-            <input type="text" id="lname" name="dob" placeholder="Date of birth"><br><br>
+        <div id="info">Qualification
+            <input type="text" name="qualification" placeholder="Qualification">
+        </div><br>
 
-            <label for="Date">Qualification</label><br>
-            <input type="text" id="lname" name="qualification" placeholder="Qualification"><br><br>
+        <div id="info">e-mail id
+            <input type="email" name="email" placeholder="E-mail id">
+        </div><br>
 
-            <label for="Date">E-mail id</label><br>
-            <input type="text" id="lname" name="email" placeholder="E-mail id"><br><br>
+        <div id="info">Address
+            <input type="text" name="address" placeholder="Address">
+        </div><br>
 
-            <label for="Date">Address</label><br>
-            <input type="text" id="lname" name="address" placeholder="Address"><br><br>
+        <div class="box">
+            <div id="info">Courses
+                <input type="text" name="courses" placeholder="Courses">
+            </div><br>
 
-            <label for="Date">Courses</label><br>
-            <input type="text" id="lname" name="courses" placeholder="Courses"><br><br>
+            <div id="info">Inquiry for
+                <input type="text" name="inquiry_for" placeholder="Inquiry for">
+            </div>
+        </div><br>
 
-            <label for="Date">Reference</label><br>
-            <input type="text" id="lname" name="reference" placeholder="Reference"><br><br>
+        <div id="info">Reference
+            <input type="text" name="reference" placeholder="Reference">
+        </div><br>
 
-            <label for="Date">Inquiry for</label><br>
-            <input type="text" id="lname" name="inquiry_for" placeholder="Inquiry for"><br><br>
+        <div id="info">Notes
+            <input type="text" name="notes" placeholder="Notes">
+        </div><br>
+        <input id="info" type="submit" value="Submit">
 
-            <label for="Date">Notes</label><br>
-            <input type="text" id="lname" name="notes" placeholder="Notes"><br><br>
-
-
-            <input type="submit" placeholder="Submit">
-        </h2>
     </form>
 </body>
+<script>
+
+    function myDate() {
+        const nowDate = new Date;
+        const date = nowDate.getDate();
+        const month = nowDate.getMonth() + 1;
+        const year = nowDate.getFullYear();
+        const retDate = `${date}/${month}/${year}`;
+        return retDate;
+    }
+    document.getElementById("date").innerHTML = `${myDate()}`
+    console.log(myDate())
+</script>
 
 </html>
