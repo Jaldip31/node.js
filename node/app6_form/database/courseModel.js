@@ -16,3 +16,7 @@ const courseSchama = new mongoose.Schema({
 var couresModel = mongoose.model("courseDetail", courseSchama)
 
 module.exports = couresModel
+
+
+
+// lojhn; LockManager
