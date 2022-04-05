@@ -17,4 +17,6 @@ var couresModel = mongoose.model("courseDetail", courseSchama)
 
 module.exports = couresModel
 
-lojhn; LockManager
+
+
+// lojhn; LockManager
