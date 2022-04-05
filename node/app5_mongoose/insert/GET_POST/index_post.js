@@ -20,6 +20,7 @@ app.post("/insert", (req, res) => {
     queryObject = req.body;
     console.log(queryObject);
     var newUser = new User(queryObject);
+    // newUser.save().then(() => console.log("Document Inserted...")).catch(error => console.log(error))
     newUser.save(function(error){
         if(error){
             console.log(error);

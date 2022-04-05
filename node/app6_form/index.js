@@ -1,7 +1,8 @@
 //                   http://localhost:5555/student/register
-//                   http://localhost:5555/coures/cform
+//                   http://localhost:5555/course/insert
 const express = require('express');
 const app = express();
+// const bycryptjs=require("bycrypt")
 const mongoose = require('mongoose')
 const studModel = require('./database/studModel')
 const couresModel = require('./database/courseModel')
@@ -12,8 +13,7 @@ app.use(bodyparser.urlencoded({ extended: true }));
 
 const { studentRouter, courseRouter } = require("./rout/rout")
 app.use("/student", studentRouter);
-app.use("/coures", courseRouter);
-
+app.use("/course", courseRouter);
 
 //mongoose connect
 mongoose.connect("mongodb://localhost:27017/jaldip", {
@@ -21,78 +21,45 @@ mongoose.connect("mongodb://localhost:27017/jaldip", {
     useUnifiedTopology: true
 });
 
-app.get("/find", (req, res) => {
-    studModel.find(req.query).then(data => res.json(data))
-})
+async function insert(model,queryObject,id_start_no) {
+    try {
+        var count = await model.count().then(data => data)
+        console.log(count);
 
-app.post("/submit", (req, res) => {
-    async function fun() {
-        try {
-            var queryObject = req.body
-            var count = await studModel.count().then(data => data)
-            console.log(count);
-
-            if (count == 0) {
-                queryObject.form_no = 1001
-                console.log(queryObject.form_no);
-            }
-            else {
-                var lastRecord = await studModel.find().select("form_no").sort({ _id: -1 }).limit(1);
-                console.log(lastRecord);
-                queryObject.form_no = lastRecord[0].form_no + 1
-            }
-
-            //data insert in database
-            console.log(queryObject)
-            var newUser = new studModel(queryObject);
-            newUser.save().then(() => console.log("Document Inserted...")).catch(error => console.log(error))
+        if (count == 0){
+            queryObject._id = id_start_no
+        } 
+        else {
+            var lastRecord = await model.find().select("_id").sort({ _id: -1 }).limit(1);
+            queryObject._id = lastRecord[0]._id + 1
         }
-        catch (error) {
-            console.log(error)
-        }
+        console.log(queryObject._id )
+
+         //data insert in database
+         console.log(queryObject)
+         model.insertMany(queryObject)  
     }
-    fun()
-    // res.send("done...")
-    console.log("end...");
+    catch (error) {
+        console.log(error)
+    }
+}
+
+app.post("/submitStudent", (req, res) => {
+    var queryObject = req.body
+    insert(studModel,queryObject,1001)
 })
 
-app.get("/findCourse", (req, res) => {
-    couresModel.find(req.query).then(data => res.json(data))
-})
 app.post("/submitCourse", (req, res) => {
-    async function fun() {
-        try {
-            var queryObject = req.body
-            var count = await couresModel.count().then(data => data)
-            console.log(count);
+    var queryObject = req.body
+    console.log(queryObject.fees)
 
-            if (count == 0) {
-                queryObject.courseid = 101
-                console.log(queryObject.courseid);
-            }
-            else {
-                var lastRecord = await couresModel.find().select("courseid").sort({ _id: -1 }).limit(1);
-                console.log(lastRecord);
-                queryObject.courseid = lastRecord[0].courseid + 1
-            }
-
-            //data insert in database
-            console.log(queryObject)
-            var newUser = new couresModel(queryObject);
-            newUser.save().then(() => console.log("Document Inserted...")).catch(error => console.log(error))
-        }
-        catch (error) {
-            console.log(error)
-        }
-    }
-    fun()
-    // res.send("done...")
-    console.log("end...");
-
+    insert(couresModel,queryObject,101)
 })
-
 
 port = process.env.PORT || 5555
 app.listen(port, () => {
     console.log(`listing port ${port}`);
 })
+
+//fallback function
+app.use("/",(req,res)=>res.send("NO PAGE"))

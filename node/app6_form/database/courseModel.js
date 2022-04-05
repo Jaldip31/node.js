@@ -1,16 +1,16 @@
 const mongoose = require("mongoose");
 
 const courseSchama = new mongoose.Schema({
-    courseid: { type: Number, required: true },
+    _id: { type: Number, required: true },
     coursename: { type: String, required: true },
     description: { type: String, required: false },
     duration: { type: Number, required: false },
     fees: { type: Number, required: false },
-    // prerequisite:[
-    //     tenth:{
-    //         type:Boolean
-    //     }
-    // ]
+    prerequisite:{
+        HSC:String,
+        SSC:String,
+        Bachaler:String
+    }
 }, { timestamps: true })
 
 var couresModel = mongoose.model("courseDetail", courseSchama)

@@ -1,7 +1,7 @@
 const mongoose = require("mongoose");
 
 const studSchama = new mongoose.Schema({
-    form_no: { type: Number, required: true },
+    _id: { type: Number, required: true },
     fname: { type: String, required: true },
     lname: { type: String, required: false },
     date: { type: Date, default: Date.now },
