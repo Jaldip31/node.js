@@ -42,22 +42,22 @@
             <input type="text" name="description" placeholder="Enter description">
         </div><br>
 
-        <!-- <div id="info">prerequisite : 10th<input name="prerequisite" name="HSC" type="checkbox" checked>
-            12th<input name="prerequisite" name="SSC" type="checkbox">
-            Bachaler<input name="prerequisite" name="Bachaler" type="checkbox"></div><br> -->
-        <div id="info" >prerequisite : 10th<input name="prerequisite.HSC" type="checkbox" >
-            12th<input  name="prerequisite.SSC" type="checkbox">
-            Bachaler<input  name="prerequisite.Bachaler" type="checkbox"></div><br>
+        <div id="info">prerequisite : 10th<input name="prerequisite.ssc" value="true" type="checkbox">
+            12th<input name="prerequisite.hsc" value="true" type="checkbox">
+            Bachelor<input name="prerequisite.bachelor" value=true type="checkbox"></div><br>
 
         <div id="info">Duration :
             <input type="number" name="duration" placeholder="Enter duration (in mounth)">
         </div><br>
 
         <div id="info">Fees :
-            <input type="number" name="fees" placeholder="Enter course name">
+            <input type="number" name="fees" placeholder="Enter fees">
         </div><br>
-        <input id="info" type="submit" value="Submit">
+        <input id="info" type="submit" value="Submit"><br>
 
+    </form>
+    <form method="post" action="/submitCourse">
+        <input type="button" value="find">
     </form>
 </body>
 <script>

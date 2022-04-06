@@ -15,6 +15,7 @@ courseRouter.get("/insert", (req, res) => {
     res.sendFile(__dirname + "/courseForm.html");
 })
 courseRouter.get("/find", (req, res) => {
+    res.sendFile(__dirname + "/find.html");
     couresModel.find(req.query).then(data => res.json(data))
 })
 
