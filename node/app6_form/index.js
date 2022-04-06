@@ -2,7 +2,7 @@
 //                   http://localhost:5555/course/insert
 const express = require('express');
 const app = express();
-// const bycryptjs=require("bycrypt")
+const bcryptjs=require("bcryptjs")
 const mongoose = require('mongoose')
 const studModel = require('./database/studModel')
 const couresModel = require('./database/courseModel')
@@ -24,7 +24,7 @@ mongoose.connect("mongodb://localhost:27017/jaldip", {
 async function insert(model,queryObject,id_start_no) {
     try {
         var count = await model.count().then(data => data)
-        console.log(count);
+        // console.log(count);
 
         if (count == 0){
             queryObject._id = id_start_no
@@ -33,7 +33,6 @@ async function insert(model,queryObject,id_start_no) {
             var lastRecord = await model.find().select("_id").sort({ _id: -1 }).limit(1);
             queryObject._id = lastRecord[0]._id + 1
         }
-        console.log(queryObject._id )
 
          //data insert in database
          console.log(queryObject)
@@ -44,6 +43,13 @@ async function insert(model,queryObject,id_start_no) {
     }
 }
 
+async function Securefee(fee,queryObject){
+    const result = await bcryptjs.hash(fee,10);
+    console.log(result)
+    queryObject.fees=result
+    
+}
+
 app.post("/submitStudent", (req, res) => {
     var queryObject = req.body
     insert(studModel,queryObject,1001)
@@ -51,8 +57,7 @@ app.post("/submitStudent", (req, res) => {
 
 app.post("/submitCourse", (req, res) => {
     var queryObject = req.body
-    console.log(queryObject.fees)
-
+    Securefee(queryObject.fees,queryObject)
     insert(couresModel,queryObject,101)
 })
 

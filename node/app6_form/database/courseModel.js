@@ -5,11 +5,11 @@ const courseSchama = new mongoose.Schema({
     coursename: { type: String, required: true },
     description: { type: String, required: false },
     duration: { type: Number, required: false },
-    fees: { type: Number, required: false },
+    fees: { type: String, required: false },
     prerequisite:{
-        HSC:String,
-        SSC:String,
-        Bachaler:String
+        hsc:Boolean,
+        ssc:Boolean,
+        bachelor:Boolean
     }
 }, { timestamps: true })
 
