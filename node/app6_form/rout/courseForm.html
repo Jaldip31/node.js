@@ -49,16 +49,22 @@
         <div id="info">Duration :
             <input type="number" name="duration" placeholder="Enter duration (in mounth)">
         </div><br>
-
+        
         <div id="info">Fees :
             <input type="number" name="fees" placeholder="Enter fees">
         </div><br>
         <input id="info" type="submit" value="Submit"><br>
-
-    </form>
-    <form method="post" action="/submitCourse">
         
-        <input type="button" value="find">
+    </form>
+    <form method="post" action="/findCourse">
+        <div id="info">key :
+            <input type="text" name="key" placeholder="Enter key">
+        </div><br>
+        <div id="info">value :
+            <input type="text" name="value" placeholder="Enter value">
+        </div><br>
+        
+        <input type="submit" value="find">
     </form>
 </body>
 <script>

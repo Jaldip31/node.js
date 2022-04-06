@@ -60,6 +60,10 @@ app.post("/submitCourse", (req, res) => {
     Securefee(queryObject.fees,queryObject)
     insert(couresModel,queryObject,101)
 })
+app.post("/findCourse", (req, res) => {
+    console.log()
+    couresModel.find(req.body).then(data => res.json(data))
+})
 
 port = process.env.PORT || 5555
 app.listen(port, () => {
