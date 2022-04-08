@@ -43,26 +43,22 @@ async function insert(model,queryObject,id_start_no) {
     }
 }
 
-async function Securefee(fee,queryObject){
-    const result = await bcryptjs.hash(fee,10);
-    console.log(result)
-    queryObject.fees=result
-    
-}
+app.post("/submitStudent", (req, res) => insert(studModel,req.body,1001))
 
-app.post("/submitStudent", (req, res) => {
-    var queryObject = req.body
-    insert(studModel,queryObject,1001)
-})
-
-app.post("/submitCourse", (req, res) => {
-    var queryObject = req.body
-    Securefee(queryObject.fees,queryObject)
-    insert(couresModel,queryObject,101)
+app.post("/submitCourse", async(req, res) => {
+    // var queryObject = req.body
+    req.body.fees = await bcryptjs.hash(req.body.fees,10);
+    insert(couresModel,req.body,101)
 })
 app.post("/findCourse", (req, res) => {
-    console.log()
-    couresModel.find(req.body).then(data => res.json(data))
+    console.log(req.body.key)
+    var keys = req.body.value
+    console.log(req.body.value)
+    var values = req.body.value
+    console.log(req.body)
+    couresModel.find({"coursename":req.body.value}).then(data => res.json(data))
+    // couresModel.find().then(data => res.json(data))
+    // couresModel.find({req.body.key : "js"}).then(data => res.json(data))
 })
 
 port = process.env.PORT || 5555
@@ -71,4 +67,4 @@ app.listen(port, () => {
 })
 
 //fallback function
-app.use("/",(req,res)=>res.send("NO PAGE"))
+// app.use("/",(req,res)=>res.send("NO PAGE"))

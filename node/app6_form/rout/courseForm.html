@@ -27,7 +27,7 @@
     <h1> Skill Qode </h1>
     <form method="post" action="/submitCourse">
         <div id="header" style="text-align: center;">
-            <h1> Courses </h1>
+            <h1>Insert Courses </h1>
             <div class="box">
                 <div id="info">Date : <span id="date"></span> </div>
             </div><br>
@@ -57,14 +57,21 @@
         
     </form>
     <form method="post" action="/findCourse">
-        <div id="info">key :
+        <div id="header" style="text-align: center;">
+            <h1>Find Courses </h1>
+            <hr><br>
+        </div>
+        <!-- <div id="info">key :
             <input type="text" name="key" placeholder="Enter key">
+        </div><br> -->
+        <div id="info">Find ANY course :
+            <input type="text" name="value" placeholder="Enter courseName">
+            <input type="submit" value="find ANY">
         </div><br>
-        <div id="info">value :
-            <input type="text" name="value" placeholder="Enter value">
-        </div><br>
+        <div id="info">Find ALL course :
+           <a href="/course/find"> <input type="button"  value="find ALL"></a>
+        </div>
         
-        <input type="submit" value="find">
     </form>
 </body>
 <script>
