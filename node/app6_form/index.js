@@ -2,8 +2,10 @@
 //                   http://localhost:5555/course/insert
 const express = require('express');
 const app = express();
-const bcryptjs=require("bcryptjs")
+const bcryptjs = require("bcryptjs")
 const mongoose = require('mongoose')
+
+//databases
 const studModel = require('./database/studModel')
 const couresModel = require('./database/courseModel')
 
@@ -21,50 +23,38 @@ mongoose.connect("mongodb://localhost:27017/jaldip", {
     useUnifiedTopology: true
 });
 
-async function insert(model,queryObject,id_start_no) {
+async function insert(model, queryObject, id_start_no) {
     try {
         var count = await model.count().then(data => data)
-        // console.log(count);
 
-        if (count == 0){
+        if (count == 0) {
             queryObject._id = id_start_no
-        } 
+        }
         else {
             var lastRecord = await model.find().select("_id").sort({ _id: -1 }).limit(1);
             queryObject._id = lastRecord[0]._id + 1
         }
-
-         //data insert in database
-         console.log(queryObject)
-         model.insertMany(queryObject)  
+        //data insert in database
+        console.log(queryObject)
+        model.insertMany(queryObject)
     }
     catch (error) {
         console.log(error)
     }
 }
 
-app.post("/submitStudent", (req, res) => insert(studModel,req.body,1001))
+app.post("/submitStudent", (req, res) => insert(studModel, req.body, 1001))
 
-app.post("/submitCourse", async(req, res) => {
-    // var queryObject = req.body
-    req.body.fees = await bcryptjs.hash(req.body.fees,10);
-    insert(couresModel,req.body,101)
-})
-app.post("/findCourse", (req, res) => {
-    console.log(req.body.key)
-    var keys = req.body.value
-    console.log(req.body.value)
-    var values = req.body.value
-    console.log(req.body)
-    couresModel.find({"coursename":req.body.value}).then(data => res.json(data))
-    // couresModel.find().then(data => res.json(data))
-    // couresModel.find({req.body.key : "js"}).then(data => res.json(data))
+app.post("/submitCourse", async (req, res) => {
+    req.body.fees = await bcryptjs.hash(req.body.fees, 10);
+    insert(couresModel, req.body, 101)
 })
 
+app.post("/findCourse", (req, res) => couresModel.find({ "coursename": req.body.value }).then(data => res.json(data)))
+
+// listing port 
 port = process.env.PORT || 5555
-app.listen(port, () => {
-    console.log(`listing port ${port}`);
-})
+app.listen(port, () => console.log(`listing port ${port}`))
 
 //fallback function
-// app.use("/",(req,res)=>res.send("NO PAGE"))
+app.use("/", (req, res) => res.send("NO PAGE"))
