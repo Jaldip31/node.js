@@ -5,7 +5,7 @@ const app = express();
 const bcryptjs = require("bcryptjs")
 const mongoose = require('mongoose')
 
-//databases
+//databasesz
 const studModel = require('./database/studModel')
 const couresModel = require('./database/courseModel')
 
@@ -45,12 +45,12 @@ async function insert(model, queryObject, id_start_no) {
 
 app.post("/submitStudent", (req, res) => insert(studModel, req.body, 1001))
 
-app.post("/submitCourse", async (req, res) => {
-    // req.body.fees = await bcryptjs.hash(req.body.fees, 10);
+app.post("/submitCourse/", async (req, res) => {
+    req.body.fees = await bcryptjs.hash(req.body.fees, 10);
     insert(couresModel, req.body, 101)
 })
 
-app.post("/findCourse", (req, res) => couresModel.find({ "coursename": req.body.value }).then(data => res.json(data)))
+app.post("/findCourse", async(req, res) => await couresModel.find({ coursename: req.body.value }).then(data => res.json(data)))
 
 // listing port 
 port = process.env.PORT || 5555

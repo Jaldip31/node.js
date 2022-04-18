@@ -8,6 +8,15 @@ studentRouter.get("/find", (req, res) => studModel.find(req.query).then(data => 
 
 const courseRouter = express.Router();
 courseRouter.get("/insert", (req, res) => res.sendFile(__dirname + "/courseForm.html"));
-courseRouter.get("/find", (req, res) => couresModel.find(req.query).then(data => res.json(data)));
+courseRouter.get("/find/:value", async(req, res) => {
+    const id = req.params.value
+    console.log(id)
+    
+   const result = await couresModel.find({coursename:id})
+//    const result = await couresModel.findById(_id)
+   res.send(result)
+//    const result = await couresModel.find()
+//    res.send(result)
+});
 
 module.exports = { studentRouter, courseRouter }
