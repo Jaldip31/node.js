@@ -8,9 +8,6 @@ dotenv.config();
 const cors = require("cors");
 app.use(cors());
 
-var mongoexpressreq = require("mongo-express-req")
-app.use(mongoexpressreq(process.env.CONNECTION_URL))
-
 const module1 = require("./get_product");
 app.use("/get_product", module1);
 

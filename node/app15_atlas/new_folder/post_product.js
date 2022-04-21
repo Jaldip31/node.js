@@ -4,17 +4,21 @@ const mongodb = require("mongodb")
 const insert = express.Router()
 // using POST method
 insert.post("/", (req, res) => {
-    const connection = req.db
-    const db = connection.db(process.env.DATABASE_NAME, {
-        useNewurlPareser: true,
-        useUnifiedTopology: true
-    })
-    console.log(req.body)
-    db.collection(process.env.COLLECTION_NAME).insertOne(req.body, (err, result) => {
-    // db.collection(process.env.COLLECTION_NAME).insertMany(req.body , (err, result) => {
+    mongodb.MongoClient.connect(process.env.CONNECTION_URL, (err, connection) => {
         if (err) throw err;
         else {
-            res.send("data insert....");
+            const db = connection.db(process.env.DATABASE_NAME, {
+                useNewurlPareser: true,
+                useUnifiedTopology: true
+            })
+            console.log(req.body)
+            // db.collection(process.env.COLLECTION_NAME).insertOne(req.body, (err, result) => {
+            db.collection(process.env.COLLECTION_NAME).insertMany(req.body , (err, result) => {
+                if (err) throw err;
+                else {
+                    res.send("data insert....");
+                }
+            })
         }
     })
 })
