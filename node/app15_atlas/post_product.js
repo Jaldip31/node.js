@@ -10,8 +10,8 @@ insert.post("/", (req, res) => {
         useUnifiedTopology: true
     })
     console.log(req.body)
-    db.collection(process.env.COLLECTION_NAME).insertOne(req.body, (err, result) => {
-    // db.collection(process.env.COLLECTION_NAME).insertMany(req.body , (err, result) => {
+    // db.collection(process.env.COLLECTION_NAME).insertOne(req.body, (err, result) => {
+    db.collection(process.env.COLLECTION_NAME).insertMany(req.body , (err, result) => {
         if (err) throw err;
         else {
             res.send("data insert....");
