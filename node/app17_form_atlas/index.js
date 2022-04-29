@@ -1,6 +1,8 @@
 const express = require("express");
 const app = express();
 
+const path = require("path");
+
 const dotenv = require("dotenv");
 dotenv.config({path:'config.env'})
 
@@ -9,16 +11,18 @@ app.use(bodyparser.urlencoded({ extended: true }));
 
 const ejs = require("ejs");
 
+const connectDB = require("./server/database/connection")
+connectDB();
+
 //set view engine
 app.set("view engine","ejs");
 
-app.get("/",(req,res)=>{
-    res.render("index");
-})
 
-const studRouter = require("./rout");
-app.use("/student",studRouter);
+// load router
+app.use("/",require("./server/routes/router"));
 
+//load assent
+app.use('/js',express.static(path.resolve(__dirname,"assets/js")))
 
 
 
