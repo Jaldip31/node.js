@@ -1,6 +1,5 @@
 const userModel = require("../model/model")
 
-
 exports.signup = ((req, res) => userModel.insertMany(req.body))
 
 exports.login = (async (req, res) => {
