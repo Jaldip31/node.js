@@ -11,6 +11,8 @@ mongoose.connect("mongodb://localhost:27017/userDB", {
 })
 
 const register = express.Router();
+
+//API
 register.post("/signup", controller.signup);
 register.post("/login", controller.login);
 register.put("/update", controller.update);
