@@ -1,9 +1,15 @@
 const userModel = require("../model/model")
+const express = require("express");
+const app = express();
+const Session = require("../session");
+
+const session = require("express-session");
+app.use(session({ secret: "skillqode@123", resave: true, saveUninitialized: true, cookie: { maxAge: 20 * 1000 } }));
 
 exports.signup = (async (req, res) => {
     if (req.body.ref == undefined) {
         console.log("hii")
-        await userModel.insertOne(req.body).then(data => res.send(data)).catch(e => res.send(e))
+        await userModel.create(req.body).then(data => res.send(data)).catch(e => res.send(e))
     } else {
         await userModel.find({ email: req.body.ref }, {}).then(async ref_data => {
             // console.log(ref_data[0].email)
@@ -22,8 +28,7 @@ exports.signup = (async (req, res) => {
 
                 console.log(byEmail_arr)
                 console.log(getBonus_arr)
-
-                await userModel.insertMany(req.body).then(data => res.send(data)).catch(e => res.send(e))
+                await userModel.create(req.body).then(data => res.send(data)).catch(e => res.send(e))
                 // await userModel.insertOne(req.body).then(data => res.send(data)).catch(e => res.send(e))
                 await userModel.updateOne({ email: ref_data[0].email }, {
                     $set: {
@@ -36,7 +41,11 @@ exports.signup = (async (req, res) => {
 })
 
 exports.login = (async (req, res) => {
-    await userModel.find({ email: req.body.email }, {}).then(async data => {
+
+    req.session = {s_email:req.body.email,s_password:req.body.password}
+    console.log("session created...");
+
+    await userModel.find({ email: req.session.s_email }, {}).then(async data => {
         console.log(data);
         if (data == "") {
             res.json({ "msg": "do sign-up" })
@@ -50,7 +59,7 @@ exports.login = (async (req, res) => {
                 const new_data = [];
                 all_data.forEach(element => (element.email != data[0].email) ? new_data.push(element) : 0);
 
-                console.log(new_data)
+                // console.log(new_data)
                 res.send(new_data);
             } else {
                 res.json({ "msg": "login fail" });

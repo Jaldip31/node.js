@@ -5,7 +5,7 @@ const controller = require("../controller/controller")
 const register = express.Router();
 
 register.get("/create_table",controller.create_table)
-register.post("/insert",controller.insert );
+register.post("/insert",controller.insert);
 register.get("/find", controller.find);
 register.put("/update", controller.update)
 register.delete("/delete", controller.delete)

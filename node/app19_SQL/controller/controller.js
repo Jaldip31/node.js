@@ -1,4 +1,3 @@
-const mysql = require("mysql")
 const con = require("../model/model");
 
 exports.create_table = ((req, res) => {
@@ -18,7 +17,7 @@ exports.insert = ((req, res) => {
     res.json(req.body);
 })
 
-exports.insert = ((req, res) => {
+exports.find = ((req, res) => {
     var sql = `SELECT * FROM userdata`
     // var sql = "SELECT firstname, configpass FROM userdata"
     // var sql = "SELECT * FROM userdata WHERE firstname != 'undefined'"
