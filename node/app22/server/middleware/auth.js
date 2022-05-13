@@ -3,12 +3,14 @@ const jwt = require("jsonwebtoken")
 const middelware = async (req, res, next) => {
     try {
 
-        const verify = await jwt.verify(req.cookies.jwt, "mySecretKey")
+        const token = req.cookies.jwt
+        const verify = await jwt.verify(token, "mySecretKey")
         console.log("verify", verify)
-        next(); 
+
+        next();
     }
     catch (error) {
-        res.status(400).json({"msg":`error is ${error}`});
+        res.status(400).json({ "msg": `error is ${error}` });
     }
 }
 module.exports = middelware

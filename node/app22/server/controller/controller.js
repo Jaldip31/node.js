@@ -35,6 +35,7 @@ exports.submitUser = (async (req, res) => {
             res.json({ "msg": "password are not match" });
         }
     }
+
     catch (error) {
         res.status(400).send(error);
     }
@@ -43,38 +44,50 @@ exports.submitUser = (async (req, res) => {
 
 exports.submitLogin = (async (req, res) => {
     try {
-        const {email,password}=req.body
+        const { email, password } = req.body
 
-        if(!email || !password){
-            res.status(400).json({error:"Plz Filled the data"})
+        if (!email || !password) {
+            res.status(400).json({ error: "Plz Filled the data" })
         }
         const emailDB = await userModel.findOne({ email })
         console.log(emailDB)
-        
+
         const isMatch = await bcrypt.compare(password, emailDB.password)
         console.log(isMatch)
-        
+
         if (isMatch) {
             const token = await emailDB.generateAuthToken()
-            console.log("the token", token);
-    
+            console.log("generate Token :", token);
+
             res.cookie("jwt", token, {
-                expires: new Date(Date.now() + 120000),
+                expires: new Date(Date.now() + 300000),
                 httpOnly: true
             })
             res.status(201).render("index");
         }
-        else {
-            res.status(400).json({error:"Envalid password Details"})
-            console.log("HELlO")
-        }
+        // else {
+        //     res.status(400).json({ error: "Envalid password Details" })
+        //     console.log("HELlO")
+        // }
     }
     catch (error) {
         res.status(400).send("Envalid login details");
     }
 
 })
-exports.secret = (async (req, res) => {
-    console.log("cookie : ", req.cookies.jwt)
+// exports.secret = (async (req, res) => {
+//     console.log("cookie : ", req.cookies.jwt)
+// })
+
+exports.logout = (async (req, res) => {
+    try {
+        res.clearCookie("jwt")
+        console.log("logout successfully")
+        res.render("login")
+
+    }
+    catch (error) {
+        res.status(500).send(error)
+    }
 })
 

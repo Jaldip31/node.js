@@ -14,4 +14,7 @@ exports.login = ((req, res) => {
 exports.secret = ((req, res) => {
     res.render("secret");
 })
+exports.logout = ((req, res) => {
+    res.render("login");
+})
 

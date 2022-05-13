@@ -16,6 +16,7 @@ rout.get("/secret", auth, services.secret);
 //API
 rout.post("/submitUser", controller.submitUser);
 rout.post("/submitLogin", controller.submitLogin);
+rout.get("/logout", controller.logout);
 
 
 module.exports = rout
