@@ -19,7 +19,6 @@ exports.submitUser = (async (req, res) => {
                 password: req.body.password,
                 cpassword: req.body.cpassword
             })
-
             await registerUser.save().then(data => console.log("data inserted...", data));
             res.status(201).render("index");
         }
@@ -82,16 +81,17 @@ exports.logout = (async (req, res) => {
     }
 })
 
-exports.update = ((req, res) => {
-    // userModel.updateOne({_id:req.},$set:{}).then(data => res.send(data)).catch(e => res.send(e));
-    // couresModel.findByIdAndUpdate(id, req.body, { useFindAndModify: false }).then(data => res.send(data)).catch(e => res.send(e));
+exports.find_course = (async (req, res) => {
+    if (req.query.cid) {
+        const cid = req.query.cid
+        couresModel.findById(cid).then(data => res.send(data)).catch(err => res.send(err))
+    }
+    else {
+        couresModel.find().then(data => res.send(data)).catch(err => res.send(err))
+    }
 })
 
-
-
-exports.getCourse = (async (req, res) => couresModel.find().then(data => res.send(data)))
-
-exports.submitCourse = (async (req, res) => {
+exports.insert_course = (async (req, res) => {
     try {
         const submitCourse = new couresModel({
             coursename: req.body.coursename,
@@ -107,12 +107,5 @@ exports.submitCourse = (async (req, res) => {
     }
 })
 
-exports.updateCourse = (async (req, res) => {
 
-    couresModel.findByIdAndUpdate(cid, req.body, { useFindAndModify: false }).then(data => res.send(data)).catch(e => res.send(e));
-    // console.log("hiiii")
-    // console.log(req.params.cid)
-    // console.log(req.body.fees)
-    // couresModel.updateOne({ _id: req.params.cid }, 
-    //     $set{}).then(data => res.send(data))
-})
+exports.update_course = (async (req, res) => couresModel.findByIdAndUpdate(req.query.cid, req.body, { useFindAndModify: false }).then(data => res.render("index")).catch(err => res.send(err)))

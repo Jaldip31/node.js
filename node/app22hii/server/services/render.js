@@ -25,7 +25,7 @@ exports.addCourse = ((req, res) => {
 
 exports.allCourse = ((req, res) => {
 
-    axios.get("http://localhost:5555/cou/getCourse").then(function (resss) {
+    axios.get("http://localhost:5555/cou/find_course").then(function (resss) {
         // console.log("ressssss.data", resss.data)
         // //     res.render("alluser", { producte: getdataa.data })
         res.render("allCourse", { courseArr: resss.data })
@@ -38,18 +38,11 @@ exports.allCourse = ((req, res) => {
 
 exports.updateCourse = ((req, res) => {
 
-
-    // console.log("params", req.query.cid)
-    // axios.get("http://localhost:5555/cou/UPDATE_COURSE")
-    axios.get("http://localhost:5555/cou/update_Course", { parmas: { cid: req.query.cid } })
+    axios.get("http://localhost:5555/cou/find_course", { params: { cid: req.query.cid } })
         .then(function (reee) {
-            res.render("updateCourse")
-            // res.render("updateCourse", { courseData: reee.data })
+            res.render("updateCourse", { courseData: reee.data })
         }).catch(err => {
             res.send(err);
         })
-
-
-
 })
 
