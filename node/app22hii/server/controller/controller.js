@@ -83,11 +83,10 @@ exports.logout = (async (req, res) => {
 
 exports.find_course = (async (req, res) => {
     if (req.query.cid) {
-        const cid = req.query.cid
-        couresModel.findById(cid).then(data => res.send(data)).catch(err => res.send(err))
+        couresModel.find().then(data => res.send(data)).catch(err => res.send(err))
     }
     else {
-        couresModel.find().then(data => res.send(data)).catch(err => res.send(err))
+        couresModel.find({ isActive: true }, {}).then(data => res.send(data)).catch(err => res.send(err))
     }
 })
 
@@ -108,4 +107,9 @@ exports.insert_course = (async (req, res) => {
 })
 
 
-exports.update_course = (async (req, res) => couresModel.findByIdAndUpdate(req.query.cid, req.body, { useFindAndModify: false }).then(data => res.render("index")).catch(err => res.send(err)))
+exports.update_course = (async (req, res) => {
+    couresModel.findByIdAndUpdate(req.query.cid, req.body, { useFindAndModify: false }).then(res.render("index")).catch(err => res.send(err))
+})
+exports.delete_course = (async (req, res) => {
+    couresModel.updateOne({ _id: req.query.cid }, { $set: { isActive: false } }).then(res.render("index")).catch(err => res.send(err))
+})

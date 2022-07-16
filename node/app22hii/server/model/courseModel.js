@@ -12,6 +12,7 @@ const courseSchama = new mongoose.Schema({
         }
     },
     fees: { type: String, required: false },
+    isActive: { type: Boolean, default: true }
     // prerequisite: {
     //     hsc: { type: Boolean, default: false },
     //     ssc: { type: Boolean, default: false },

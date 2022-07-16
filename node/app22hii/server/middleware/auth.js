@@ -10,7 +10,7 @@ const middelware = async (req, res, next) => {
         next();
     }
     catch (error) {
-        res.status(400).json({ "msg": `error is ${error}` });
+        res.status(400).json({ "msg": `do login ERROR : up${error}` });
     }
 }
 module.exports = middelware
