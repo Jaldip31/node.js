@@ -28,7 +28,4 @@ courseRout.get("/find_course", controller.find_course);                 // +++++
 courseRout.post("/insert_course", controller.insert_course);
 courseRout.post("/update_course", controller.update_course);           // -------
 
-
-
-
 module.exports = { userRout, courseRout }
