@@ -67,7 +67,6 @@ const _ = require("underscore");
 // let b = _.each(obj, (val, key, list) => list[key] = val * 3)
 // let b = _.each(obj, _.first)
 
-
 // console.log("obj", obj)
 // console.log("b-===", b)
 
@@ -80,28 +79,14 @@ const _ = require("underscore");
 // console.log(c)
 const obj = [{ one: 1 }, { two: 2 }, { three: 3 }];
 // const obj = ["one", "two", "thre"];
-const c = obj.filter(ele => 'two' in ele);
+const c = obj.filter((ele) => "two" in ele);
 // const c = obj.includes("two");
 // const c = obj.includes({ two: 3 });
 
-console.log(c)
-
-
-
-
-
-
-
-
-
-
-
-
-
+console.log(c);
 
 // const a = _.groupBy(arr, 'Time')
 // console.log("aaaaa", a)
-
 
 // for (let key in a) {
 //     console.log(a[key])
